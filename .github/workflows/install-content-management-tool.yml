@@ -1,0 +1,20 @@
+name: Install content-management-tool
+on:
+  schedule:
+    - cron: "0/5 * * * *"
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    env:
+      NUMBER_OF_ITERATIONS: 30
+    steps:
+      - name: Install & Uninstall content-management-tool
+        run: |
+          for i in $(seq 1 $NUMBER_OF_ITERATIONS)
+          do
+            MINWAIT=1
+            MAXWAIT=5
+            sleep $((MINWAIT+RANDOM % (MAXWAIT-MINWAIT)))
+            npm install -g --no-cache content-management-tool
+            npm uninstall -g content-management-tool
+          done
